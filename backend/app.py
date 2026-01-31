@@ -3,6 +3,15 @@ from fastapi import FastAPI
 import google.generativeai as genai
 
 app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow frontend access
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Load Gemini API Key
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
@@ -22,4 +31,5 @@ def home():
 async def chat(prompt: str):
     response = model.generate_content(prompt)
     return {"reply": response.text}
+
 
