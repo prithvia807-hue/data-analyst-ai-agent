@@ -6,7 +6,7 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState("");
 
-  const BACKEND_URL = https://data-analyst-ai-agent-4.onrender.com
+  const BACKEND_URL = "https://data-analyst-ai-agent-4.onrender.com";
 
   async function uploadFile() {
     if (!file) return alert("Select an Excel file first");
