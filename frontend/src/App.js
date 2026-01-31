@@ -18,7 +18,8 @@ export default function App() {
   }
 
   async function askQuery() {
-    const res = await axios.post(`${BACKEND_URL}/query/`, { question: query });
+    const res = axios.post(`${BACKEND_URL}/chat`, { prompt: query })
+
     setAnswer(res.data.answer);
   }
 
