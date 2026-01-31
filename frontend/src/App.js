@@ -13,14 +13,14 @@ export default function App() {
     const formData = new FormData();
     formData.append("file", file);
 
-    await axios.post(`${BACKEND_URL}/upload/`, formData);
+    await axios.post(`${BACKEND_URL}/`, formData);
     alert("Excel Uploaded Successfully!");
   }
 
   async function askQuery() {
     const res = axios.post(`${BACKEND_URL}/chat`, { prompt: query })
 
-    setAnswer(res.data.answer);
+    setAnswer(res.data.reply);
   }
 
   return (
