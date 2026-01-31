@@ -6,7 +6,8 @@ export default function Dashboard() {
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState("");
 
-  const BACKEND_URL = "https://YOUR-BACKEND.onrender.com";
+  const BACKEND_URL =  "https://data-analyst-ai-backend.onrender.com";
+
 
   const uploadExcel = async () => {
     const form = new FormData();
@@ -44,3 +45,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
