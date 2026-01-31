@@ -1,31 +1,25 @@
-import pandas as pd
-from openai import OpenAI
 import os
+from fastapi import FastAPI
+import google.generativeai as genai
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+app = FastAPI()
 
-def run_ai_agent(file_path, query):
-    df = pd.read_excel(file_path)
-    preview = df.head(10).to_string()
+# Load Gemini API Key
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-    prompt = f"""
-You are a senior Data Analyst.
+# Configure Gemini
+genai.configure(api_key=GEMINI_API_KEY)
 
-Dataset Preview:
-{preview}
+model = genai.GenerativeModel("gemini-pro")
 
-User Question:
-{query}
 
-Give:
-1. Business Answer
-2. KPI Insights
-3. Power BI Dashboard Chart Suggestions
-"""
+@app.get("/")
+def home():
+    return {"message": "Backend is running successfully!"}
 
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": prompt}]
-    )
 
-    return response.choices[0].message.content
+@app.post("/chat")
+async def chat(prompt: str):
+    response = model.generate_content(prompt)
+    return {"reply": response.text}
+
